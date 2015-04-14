@@ -1,0 +1,17 @@
+{
+  "name": "trainingplanner",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "mocha": "*",
+    "moment": "^2.10.1",
+    "should": "*"
+  },
+  "description": "plan a run",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tjerk Valentijn",
+  "license": "ISC"
+}

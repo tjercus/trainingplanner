@@ -1,0 +1,42 @@
+body {
+  padding: 4em;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+h2 {
+    font-size: 1.1em;
+}
+
+table thead tr th {
+    background-color: black;
+    color: white;
+    text-align: left;
+}
+
+table tbody tr {
+    border-bottom: 1px solid silver;
+}
+
+table .numeric {
+    text-align: right;
+}
+
+#feedback {
+    border: 1px solid silver;
+    background-color: yellow;
+    width: 10em;
+    margin: 1em;
+    padding: 1em;
+}
+
+nav ul {
+    margin-left: 0px;
+    padding-left: 0px;
+}
+nav ul li {
+    display: inline;
+}

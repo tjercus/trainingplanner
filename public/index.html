@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8" />
+	<link href='favicon.ico' rel='icon' type='image/x-icon' />
+	<title>Trainingplanner client</title>
+	<style type="text/css">@import "stylesheets/style.css";</style>
+</head>
+<body>
+	<nav>
+		<ul>
+			<li><a href="/#">Trainings</a></li>
+			<li><a href="/#/selectedTrainings">SelectedTrainings</a></li>
+		</ul>
+	</nav>
+
+	<script type="text/x-handlebars" data-template-name="Training/create">
+		<h2>create Training</h2>
+
+		<form id="Training-form">
+			<ul>
+				<li>
+					<label for="name">Name</label>
+					{{view Ember.TextField valueBinding=name id="name" autofocus="autofocus"}}
+				</li>				
+			</ul>
+			<button {{action "save" this}}>save</button>
+			or {{#link-to 'index'}}go back{{/link-to}}
+		</form>
+	</script>
+
+	<script src="javascripts/libs/jquery.min.js"></script>
+	<script src="javascripts/libs/ember.prod.js"></script>
+	<script src="javascripts/libs/ember-data.prod.js"></script>
+	<script src="javascripts/libs/ember-template-compiler.js"></script>
+	<script src="javascripts/libs/handlebars.js"></script>
+
+	<script src="javascripts/client.js"></script>
+</body>
+</html>
