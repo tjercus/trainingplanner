@@ -1,45 +1,43 @@
 
-var moment = require("moment");
+var trainingplannerApp = angular.module("TrainingplannerApp", []);
 
-var Training = function() {
-    this.segments = [];
+// TODO support integer only inputs (autocomplete with ':')
+// TODO support changing the order of segments up and down
+// TODO deploy als 'Open Web App for Android'
+trainingplannerApp.controller('CreateTrainingController', ['$scope', function($scope) {
+    var emptyObj = {distance: 0, duration: "00:00:00", pace: "00:00"};
+    $scope.training = new Training();
+    $scope.total = {};
 
-    this.addSegment = function(obj) {
-        this.segments.push(obj);
+    $scope.addEmptySegment = function() {
+        console.log("createTrainingController.addEmptySegment();");
+        $scope.training.addSegment(angular.copy(emptyObj));
     }
 
-    // TODO leftpad minutes
-    this.makePace = function(obj) {
-        var durationObj = moment.duration(obj.duration),
-            seconds = durationObj.asSeconds(),
-            paceObj = moment.duration(Math.ceil(seconds / obj.distance), "seconds");
-        return paceObj.minutes() + ":" + paceObj.seconds();
+    $scope.calculateTotal = function() {
+        // TODO perhaps make 'total' a public field on 'training' so it gets automatically recalculated when segments array is accessed
+        $scope.total = $scope.training.total();
     }
 
-    this.total = function() {
-        var totalObj = {
-            distance: 0,
-            duration: "00:00:00",
-            pace: "00:00"
+    $scope.clearTraining = function()  {
+        $scope.training = new Training(angular.copy(emptyObj));
+        $scope.total = $scope.training.total();
+    }
+
+    /**
+    * recalculate by nullifying the inverse value (duration versus pace) to re-calulate the other
+    * TODO ask user which value should be calculated?
+    * TODO move this into Training object
+    */
+    $scope.valueChanged = function(segment, propertyname) {
+        if (propertyname === "pace") {
+            segment.duration = 0;
         }
-        if (this.segments.length === 0) {
-            return totalObj;
-        } else {
-            //var obj = this.segments[0];
-            console.log("segments: " + this.segments.length);
-            for (var i = 0, len = this.segments.length; i < len; i++) {
-                // add distance
-                var obj = this.segments[i];
-                console.log("obj: " + obj);
-                totalObj.distance += parseInt(obj.distance);
-                // add duration
-                var totalDurationObj = moment.duration(totalObj.duration).add(obj.duration);
-                // TODO leftpad with zeros
-                totalObj.duration = totalDurationObj.hours() + ":" + totalDurationObj.minutes() + ":" + totalDurationObj.seconds();
-            }
-            totalObj.pace = this.makePace(totalObj);
-            return totalObj;
+        if (propertyname === "duration") {
+            segment.pace = "00:00";
         }
+        $scope.calculateTotal();
     }
-}
-module.exports.Training = Training;
+
+    $scope.addEmptySegment();
+}]);

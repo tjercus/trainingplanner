@@ -1,40 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html data-ng-app="TrainingplannerApp">
 <head lang="en">
 	<meta charset="UTF-8" />
-	<link href='favicon.ico' rel='icon' type='image/x-icon' />
-	<title>Trainingplanner client</title>
+	<link href="favicon.ico" rel="icon" type="image/x-icon" />
+	<title>Trainingplanner</title>
+	<style type="text/css">@import "javascripts/libs/skeleton/css/skeleton.css";</style>
 	<style type="text/css">@import "stylesheets/style.css";</style>
 </head>
 <body>
 	<nav>
 		<ul>
-			<li><a href="/#">Trainings</a></li>
-			<li><a href="/#/selectedTrainings">SelectedTrainings</a></li>
+			<li><a href="/#">Trainings</a></li> | <li><a href="/#/selectedTrainings">SelectedTrainings</a></li>
 		</ul>
 	</nav>
 
-	<script type="text/x-handlebars" data-template-name="Training/create">
-		<h2>create Training</h2>
+	<section data-ng-controller="CreateTrainingController">
+		<h2>Create Training</h2>
 
-		<form id="Training-form">
-			<ul>
-				<li>
-					<label for="name">Name</label>
-					{{view Ember.TextField valueBinding=name id="name" autofocus="autofocus"}}
-				</li>				
-			</ul>
-			<button {{action "save" this}}>save</button>
-			or {{#link-to 'index'}}go back{{/link-to}}
+		<form id="training-form">
+			<table summary="training segments">
+				<thead>
+					<tr><th>Distance</th><th>Duration</th><th>Pace</th></tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="segment in training.segments track by segment.uuid">
+						<td><input type="text" class="type-double" data-ng-model="segment.distance" data-ng-blur="valueChanged(segment,'distance')" /></td>
+						<td><input type="text" class="type-duration" data-ng-model="segment.duration" data-ng-blur="valueChanged(segment,'duration')" /></td>
+						<td><input type="text" class="type-time" data-ng-model="segment.pace" data-ng-blur="valueChanged(segment,'pace')"/></td>
+					</tr>
+				</tbody>
+			</table>
+			<menu>
+				<button data-ng-click="addEmptySegment()" class="button">add empty segment</button>
+				<button data-ng-click="calculateTotal()" class="button-primary">calculate total</button>
+				<button data-ng-click="clearTraining()" class="button">clear training</button>
+			</menu>
+
+			<output name="totals">
+				<p>segments: {{training.segments.length}}</p>
+				<p>Total distance: <em>{{total.distance}}</em>, duration: <em>{{total.duration}}</em>, pace: <em><time>{{total.pace}}</time></em></p>
+			</output>
 		</form>
-	</script>
+	</section>
 
-	<script src="javascripts/libs/jquery.min.js"></script>
-	<script src="javascripts/libs/ember.prod.js"></script>
-	<script src="javascripts/libs/ember-data.prod.js"></script>
-	<script src="javascripts/libs/ember-template-compiler.js"></script>
-	<script src="javascripts/libs/handlebars.js"></script>
-
+	<!-- TODO use browserify over node modules to create a bundle.js instead of Bower -->
+	<script src="javascripts/libs/angular/angular.js"></script>
+	<script src="javascripts/libs/moment/moment.js"></script>
+	<script src="javascripts/training.js"></script>
 	<script src="javascripts/client.js"></script>
 </body>
 </html>
