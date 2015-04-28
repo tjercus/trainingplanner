@@ -79,8 +79,7 @@ em {
 }
 
 /* desktop */
-@media (min-width: 700px) {
-    /* TODO not for desktop */
+@media (min-width: 721px) {    
     menu button { 
        width: auto;
     }
