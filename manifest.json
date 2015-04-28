@@ -4,11 +4,8 @@
     "description": "App to help with planning a running/walking/swimming/cycling/etc. training",
     "version": "0.0.1",
     "icons": {
-        "128": "/public/images/trainingplanner.png"
-    },
-    "app": {
-        "urls": [ "http://TODO" ],
-        "launch": { "web_url": "http://TODO" }
-    },
+        "128": "/public/images/trainingplanner-128.png",
+        "512": "/public/images/trainingplanner-512.png"
+    },    
     "permissions": [ "unlimitedStorage", "notifications" ]
 }

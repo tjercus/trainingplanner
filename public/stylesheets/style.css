@@ -1,5 +1,5 @@
 body {
-  padding: 4em;
+  padding: 0em;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -9,12 +9,22 @@ a {
 
 h2 {
     font-size: 1.1em;
+    margin-bottom: 0em;
+}
+
+table {
+    margin-top: 0em;
 }
 
 table thead tr th {
     /*background-color: black;
     color: white;*/
     text-align: left;
+}
+
+table tbody td, table tbody td input {
+    border: 0;
+    margin: 0;
 }
 
 table tbody tr td input.type-double {
@@ -55,10 +65,23 @@ menu {
     padding-left: 0em;
 }
 
+/* TODO not for desktop */
+menu button { 
+    width: 100%;
+}
+
 output {
     background-color: silver;
 }
 
 em {
     font-weight: bold;
+}
+
+/* desktop */
+@media (min-width: 700px) {
+    /* TODO not for desktop */
+    menu button { 
+       width: auto;
+    }
 }

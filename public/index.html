@@ -2,7 +2,7 @@
 <html data-ng-app="TrainingplannerApp">
 <head lang="en">
 	<meta charset="UTF-8" />
-	<link href="favicon.ico" rel="icon" type="image/x-icon" />
+	<link href="images/favicon.ico" rel="icon" type="image/x-icon" />
 	<title>Trainingplanner</title>
 	<style type="text/css">@import "javascripts/libs/skeleton/css/skeleton.css";</style>
 	<style type="text/css">@import "stylesheets/style.css";</style>
@@ -10,13 +10,11 @@
 <body>
 	<nav>
 		<ul>
-			<li><a href="/#">Trainings</a></li> | <li><a href="/#/selectedTrainings">SelectedTrainings</a></li>
+			<li>Create training</li> | <a href="/#">Stored Trainings</a></li></li>
 		</ul>
 	</nav>
 
 	<section data-ng-controller="CreateTrainingController">
-		<h2>Create Training</h2>
-
 		<form id="training-form">
 			<table summary="training segments">
 				<thead>
@@ -36,8 +34,7 @@
 				<button data-ng-click="clearTraining()" class="button">clear training</button>
 			</menu>
 
-			<output name="totals">
-				<p>segments: {{training.segments.length}}</p>
+			<output name="totals">				
 				<p>Total distance: <em>{{total.distance}}</em>, duration: <em>{{total.duration}}</em>, pace: <em><time>{{total.pace}}</time></em></p>
 			</output>
 		</form>
