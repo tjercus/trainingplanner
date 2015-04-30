@@ -1,10 +1,39 @@
 body {
-  padding: 0em;
+  margin: 0;
+  padding: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+section {
+    margin: 1em;
 }
 
 a {
   color: #00B7FF;
+}
+
+nav {
+    position: relative;
+    top: 0;
+    margin: 0;    
+    background-color: black;
+    color: white;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0.5em;
+    text-transform: uppercase;
+}
+
+nav li[disabled="disabled"] {
+    text-decoration: none;
+    font-style: italic;
+    border: 0px;    
+}
+
+nav ul li a {
+    color: white;    
 }
 
 h2 {

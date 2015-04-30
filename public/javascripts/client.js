@@ -12,16 +12,11 @@ trainingplannerApp.controller('CreateTrainingController', ['$scope', function($s
     $scope.addEmptySegment = function() {
         console.log("createTrainingController.addEmptySegment();");
         $scope.training.addSegment(angular.copy(emptyObj));
-    }
-
-    $scope.calculateTotal = function() {
-        // TODO perhaps make 'total' a public field on 'training' so it gets automatically recalculated when segments array is accessed
-        $scope.total = $scope.training.total();
-    }
+    }    
 
     $scope.clearTraining = function()  {
         $scope.training = new Training(angular.copy(emptyObj));
-        $scope.total = $scope.training.total();
+        $scope.calculateTotal();
     }
 
     /**
@@ -37,6 +32,13 @@ trainingplannerApp.controller('CreateTrainingController', ['$scope', function($s
             segment.pace = "00:00";
         }
         $scope.calculateTotal();
+    }
+    
+    /* TODO make really private */
+    
+    $scope.calculateTotal = function() {
+        // TODO perhaps make 'total' a public field on 'training' so it gets automatically recalculated when segments array is accessed
+        $scope.total = $scope.training.total();
     }
 
     $scope.addEmptySegment();

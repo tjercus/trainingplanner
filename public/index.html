@@ -10,7 +10,8 @@
 <body>
 	<nav>
 		<ul>
-			<li>Create training</li> | <a href="/#">Stored Trainings</a></li></li>
+			<li disabled="disabled">Create</li> 
+			| <li><a href="/#">Stored</a></li>
 		</ul>
 	</nav>
 
@@ -28,15 +29,13 @@
 					</tr>
 				</tbody>
 			</table>
-			<menu>
-				<button data-ng-click="addEmptySegment()" class="button">add empty segment</button>
-				<button data-ng-click="calculateTotal()" class="button-primary">calculate total</button>
-				<button data-ng-click="clearTraining()" class="button">clear training</button>
-			</menu>
-
 			<output name="totals">				
 				<p>Total distance: <em>{{total.distance}}</em>, duration: <em>{{total.duration}}</em>, pace: <em><time>{{total.pace}}</time></em></p>
 			</output>
+			<menu>
+				<button data-ng-click="addEmptySegment()" class="button button-primary">add empty segment</button>				
+				<button data-ng-click="clearTraining()" class="button">clear training</button>
+			</menu>			
 		</form>
 	</section>
 
