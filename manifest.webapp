@@ -1,14 +1,9 @@
 {
   "name": "Trainingplanner",
-  "description": "App to help with planning a running/walking/swimming/cycling/etc. training",
-  "launch_path": "/public/index.html",
-  "icons": {
-    "128": "/public/images/trainingplanner-128.png",
-    "512": "/public/images/trainingplanner-512.png"
-  },
+  "package_path": "http://tjercus.github.io/trainingplanner/trainingplanner.zip",
+  "version": "1",
   "developer": {
     "name": "Tjerk Valentijn",
     "url": "https://github.com/tjercus/trainingplanner"
-  },
-  "default_locale": "en"
+  }  
 }

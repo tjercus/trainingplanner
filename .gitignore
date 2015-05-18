@@ -1,8 +1,0 @@
-# Created by .ignore support plugin (hsz.mobi)
-
-/node_modules
-/public/javascripts/libs
-/target
-.idea/
-*~
-*.iml
