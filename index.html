@@ -1,8 +1,7 @@
 <html>
   <body>
     <p>Trainingplanner Packaged app installation page</p>
-    <script>
-      // This URL must be a full url.
+    <script>      
       var manifestUrl = 'http://tjercus.github.io/trainingplanner/manifest.webapp';
       var req = navigator.mozApps.installPackage(manifestUrl);
       req.onsuccess = function() {
