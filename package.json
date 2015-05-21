@@ -13,5 +13,10 @@
     "test": "mocha"
   },
   "author": "Tjerk Valentijn",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-util": "^3.0.4",
+    "gulp-zip": "^3.0.2"
+  }
 }

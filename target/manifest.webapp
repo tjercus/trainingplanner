@@ -1,0 +1,9 @@
+{
+  "name": "Trainingplanner",
+  "package_path": "http://tjercus.github.io/trainingplanner/trainingplanner.zip",
+  "version": "1",
+  "developer": {
+    "name": "Tjerk Valentijn",
+    "url": "https://github.com/tjercus/trainingplanner"
+  }  
+}
