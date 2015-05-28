@@ -1,7 +1,9 @@
+/* mobile first */
+
 body {
   margin: 0;
   padding: 0;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 22px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 section {
@@ -94,11 +96,6 @@ menu {
     padding-left: 0em;
 }
 
-/* TODO not for desktop */
-menu button { 
-    width: 100%;
-}
-
 output {
     background-color: silver;
 }
@@ -107,9 +104,30 @@ em {
     font-weight: bold;
 }
 
+menu button { 
+    width: 100%;
+}
+
+/* small mobile */
+
+@media (min-width: 480px) {
+    
+    body {
+        font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
+    }
+    
+}
+
 /* desktop */
-@media (min-width: 721px) {    
-    menu button { 
+
+@media (min-width: 720px) {
+    
+    menu button {
        width: auto;
     }
+    
+    body {
+        font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    }
+    
 }
