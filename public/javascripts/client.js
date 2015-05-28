@@ -1,4 +1,3 @@
-
 var trainingplannerApp = angular.module("TrainingplannerApp", []);
 
 // TODO support integer only inputs (autocomplete with ':')
@@ -17,6 +16,10 @@ trainingplannerApp.controller('CreateTrainingController', ['$scope', function($s
     $scope.clearTraining = function()  {
         $scope.training = new Training(angular.copy(emptyObj));
         $scope.calculateTotal();
+    }
+    
+    $scope.saveTraining = function()  {
+        // TODO switch to dialog where user is asked to provide a name for the training
     }
 
     /**

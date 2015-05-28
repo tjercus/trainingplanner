@@ -33,15 +33,17 @@
 				<p>Total distance: <em>{{total.distance}}</em>, duration: <em>{{total.duration}}</em>, pace: <em><time>{{total.pace}}</time></em></p>
 			</output>
 			<menu>
-				<button data-ng-click="addEmptySegment()" class="button button-primary">add empty segment</button>				
+				<button data-ng-click="addEmptySegment()" class="button button-primary">add empty segment</button>
+				<button data-ng-click="saveTraining()" class="button">save training</button>
 				<button data-ng-click="clearTraining()" class="button">clear training</button>
-			</menu>			
+			</menu>
 		</form>
 	</section>
 
 	<!-- TODO use browserify over node modules to create a bundle.js instead of Bower -->
 	<script src="javascripts/libs/angular/angular.js"></script>
 	<script src="javascripts/libs/moment/moment.js"></script>
+	<script src="javascripts/libs/mout/src/string.js"></script>
 	<script src="javascripts/training.js"></script>
 	<script src="javascripts/client.js"></script>
 </body>

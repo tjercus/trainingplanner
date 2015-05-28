@@ -7,7 +7,7 @@
     "moment": "^2.10.1",
     "should": "*"
   },
-  "description": "plan a run",
+  "description": "plan a run, swim or bike",
   "main": "index.js",
   "scripts": {
     "test": "mocha"

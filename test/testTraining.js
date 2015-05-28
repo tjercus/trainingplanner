@@ -6,7 +6,8 @@ var client = require("../public/javascripts/training");
 * These tests use the nodejs 'require' function.
 * Run with cli: 'mocha' or 'npm test'
 */
-describe('Training', function(){
+describe('Training', function() {
+    console.log(client);
     describe('#total()', function() {
         it('should return an object with zeros when there is no data', function() {
             var training = new client.Training();
@@ -34,6 +35,18 @@ describe('Training', function(){
                 total.distance.should.equal(32);
                 total.duration.should.equal("2:9:25");
                 total.pace.should.equal("4:3");
+            });
+            describe("with two digit decimal precision distances", function() {
+                it('should return an object with complete data with on two segments', function() {
+                    var training = new client.Training();
+                    training.addSegment({distance: 1.08, duration: "00:07:43"});
+                    training.addSegment({distance: 4.64, duration: "00:28:04"});
+                    var total = training.total();
+                    total.distance.should.equal(5.72);
+                    // TODO use the right values
+                    //total.duration.should.equal("2:9:25");
+                    //total.pace.should.equal("4:3");
+                });
             });
         });
         describe("duration calculation", function() {
