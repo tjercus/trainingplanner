@@ -1,12 +1,33 @@
+
 var trainingplannerApp = angular.module("TrainingplannerApp", []);
+
+function BaseController($rootScope, $scope) {
+	$scope.selectedMenuItemName = "";
+
+	$rootScope.$on("MENU_CLICK", function(event, name) {
+		console.log("MENU_CLICK: " + name);
+		$scope.selectedMenuItemName = name;
+	});
+};
+
+trainingplannerApp.controller("headerController", ["$rootScope", "$scope", function($rootScope, $scope) {
+    
+	$scope.handleMenuClick = function(name) {
+		console.log("handleMenuClick: " + name);
+		$rootScope.$broadcast("MENU_CLICK", name);
+		$scope.selectedMenuItemName = name;
+	}
+}]);
 
 // TODO support integer only inputs (autocomplete with ':')
 // TODO support changing the order of segments up and down
 // TODO deploy als 'Open Web App for Android'
-trainingplannerApp.controller('CreateTrainingController', ['$scope', function($scope) {
+trainingplannerApp.controller("CreateTrainingController", ["$rootScope", '$scope', function($rootScope, $scope) {
     var emptyObj = {distance: 0, duration: "00:00:00", pace: "00:00"};
     $scope.training = new Training();
     $scope.total = {};
+    
+    angular.extend(this, new BaseController($rootScope, $scope));
 
     $scope.addEmptySegment = function() {
         console.log("createTrainingController.addEmptySegment();");
@@ -45,4 +66,9 @@ trainingplannerApp.controller('CreateTrainingController', ['$scope', function($s
     }
 
     $scope.addEmptySegment();
+}]);
+
+trainingplannerApp.controller("StoredTrainingsController", ["$rootScope", '$scope', function($rootScope, $scope) {
+    
+    angular.extend(this, new BaseController($rootScope, $scope));    
 }]);

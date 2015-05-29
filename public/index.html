@@ -7,17 +7,25 @@
 	<title>Trainingplanner</title>
 	<style type="text/css">@import "javascripts/libs/skeleton/css/skeleton.css";</style>
 	<style type="text/css">@import "stylesheets/style.css";</style>
+	<script>
+		if (typeof define !== "function") {
+			var define = function() {};
+		}		
+	</script>
 </head>
 <body>
-	<nav>
-		<ul>
-			<li disabled="disabled">Create</li> 
-			| <li><a href="/#">Stored</a></li>
-		</ul>
-	</nav>
+	
+	<header class="header" data-ng-controller="headerController">
+		<nav>
+			<ul>
+				<li><a href="#" data-ng-click="handleMenuClick('createTraining')" data-ng-class="(selectedMenuItemName == 'createTraining') ? 'selected': ''">Create</a></li>
+				<li><a href="#" data-ng-click="handleMenuClick('storedTrainings')" data-ng-class="(selectedMenuItemName == 'storedTrainings') ? 'selected': ''">Stored</a></li>
+			</ul>
+		</nav>
+	</header>
 
-	<section data-ng-controller="CreateTrainingController">
-		<form id="training-form">
+	<section class="container" data-ng-controller="CreateTrainingController" data-ng-show="selectedMenuItemName == 'createTraining'">
+		<form id="training-form" >
 			<table summary="training segments">
 				<thead>
 					<tr><th>Distance</th><th>Duration</th><th>Pace</th></tr>
@@ -39,6 +47,10 @@
 				<button data-ng-click="clearTraining()" class="button">clear training</button>
 			</menu>
 		</form>
+	</section>
+	
+	<section class="container" data-ng-controller="StoredTrainingsController" data-ng-show="selectedMenuItemName == 'storedTrainings'">
+		Displays previously stored trainings
 	</section>
 
 	<!-- TODO use browserify over node modules to create a bundle.js instead of Bower -->

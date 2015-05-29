@@ -1,7 +1,8 @@
+
 // make require work in browser
 if (typeof require === "function") {
     var moment = require("moment");
-    var string = require("mout/src/string");
+	var string = require("mout/src/string");
 }
 
 /**

@@ -108,12 +108,18 @@ menu button {
     width: 100%;
 }
 
+.selected {
+    text-decoration: none;
+    color: gray;
+    font-style: italic;
+}
+
 /* small mobile */
 
-@media (min-width: 480px) {
+@media (min-width: 320px) {
     
     body {
-        font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
+        font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
     }
     
 }
