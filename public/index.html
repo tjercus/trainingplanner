@@ -15,7 +15,7 @@
 </head>
 <body>
 	
-	<header class="header" data-ng-controller="headerController">
+	<header class="header" data-ng-controller="HeaderController">
 		<nav>
 			<ul>
 				<li><a href="#" data-ng-click="handleMenuClick('createTraining')" data-ng-class="(selectedMenuItemName == 'createTraining') ? 'selected': ''">Create</a></li>
@@ -25,7 +25,7 @@
 	</header>
 
 	<section class="container" data-ng-controller="CreateTrainingController" data-ng-show="selectedMenuItemName == 'createTraining'">
-		<form id="training-form" >
+		<form id="training-form">
 			<table summary="training segments">
 				<thead>
 					<tr><th>Distance</th><th>Duration</th><th>Pace</th></tr>
@@ -43,14 +43,32 @@
 			</output>
 			<menu>
 				<button data-ng-click="addEmptySegment()" class="button button-primary">add empty segment</button>
-				<button data-ng-click="saveTraining()" class="button">save training</button>
+				<button data-ng-click="handleMenuClick('saveTrainingDialog')" class="button">open save dialog</button>
 				<button data-ng-click="clearTraining()" class="button">clear training</button>
+			</menu>
+			<div class="notification" data-ng-show="notification">{{notification}}</div>
+		</form>
+	</section>
+	
+	<section class="container" data-ng-controller="SaveTrainingDialogController" data-ng-show="selectedMenuItemName == 'saveTrainingDialog'">
+		<h2>Save training</h2>
+		<form id="save-training-form">
+		  <label for="training-name">Name</label>
+		  <input type="text" id="training-name" data-ng-model="trainingName" class="u-full-width" />
+      <menu>
+				<button data-ng-click="save()" class="button button-primary" data-ng-show="(trainingName.length > 0)">save</button>
+				<button data-ng-click="dontSave()" class="button">leave</button>
 			</menu>
 		</form>
 	</section>
 	
 	<section class="container" data-ng-controller="StoredTrainingsController" data-ng-show="selectedMenuItemName == 'storedTrainings'">
-		Displays previously stored trainings
+		  <h2>Previously stored trainings</h2>
+		  <ul id="trainings-list">
+		    <li ng-repeat="training in trainings">
+			    <a ng-click="loadInForm(training)">{{training.name}}</a>
+		    </li>
+	    </ul>
 	</section>
 
 	<!-- TODO use browserify over node modules to create a bundle.js instead of Bower -->

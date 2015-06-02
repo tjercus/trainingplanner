@@ -7,7 +7,6 @@ if (typeof require === "function") {
 /**
 * Model object concerning the concept of a 'Training'
 * TODO support imperial units by config.
-* TODO distance math rounding on two decimals is too coarse
 */
 var Training = function() {
     this.segments = [];

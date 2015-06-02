@@ -39,8 +39,9 @@ nav ul li a {
 }
 
 h2 {
-    font-size: 1.1em;
-    margin-bottom: 0em;
+    font-size: 1.5em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 table {
@@ -112,6 +113,14 @@ menu button {
     text-decoration: none;
     color: gray;
     font-style: italic;
+}
+
+.notification {
+  margin: 0.5em;
+  padding: 1em;
+  background-color: yellow;
+  border: 1px solid silver;
+  font-weight: bold;
 }
 
 /* small mobile */
