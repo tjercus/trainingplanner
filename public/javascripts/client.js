@@ -8,7 +8,7 @@ function BaseController($rootScope, $scope) {
 		console.log("MENU_CLICK: " + name);
 		$scope.selectedMenuItemName = name;
 	});
-};
+}
 
 trainingplannerApp.controller("headerController", ["$rootScope", "$scope", function($rootScope, $scope) {
     
@@ -16,7 +16,7 @@ trainingplannerApp.controller("headerController", ["$rootScope", "$scope", funct
 		console.log("handleMenuClick: " + name);
 		$rootScope.$broadcast("MENU_CLICK", name);
 		$scope.selectedMenuItemName = name;
-	}
+	};
 }]);
 
 // TODO support integer only inputs (autocomplete with ':')
@@ -32,16 +32,16 @@ trainingplannerApp.controller("CreateTrainingController", ["$rootScope", '$scope
     $scope.addEmptySegment = function() {
         console.log("createTrainingController.addEmptySegment();");
         $scope.training.addSegment(angular.copy(emptyObj));
-    }    
+    };
 
     $scope.clearTraining = function()  {
         $scope.training = new Training(angular.copy(emptyObj));
         $scope.calculateTotal();
-    }
+    };
     
     $scope.saveTraining = function()  {
         // TODO switch to dialog where user is asked to provide a name for the training
-    }
+    };
 
     /**
     * recalculate by nullifying the inverse value (duration versus pace) to re-calulate the other
@@ -56,14 +56,14 @@ trainingplannerApp.controller("CreateTrainingController", ["$rootScope", '$scope
             segment.pace = "00:00";
         }
         $scope.calculateTotal();
-    }
+    };
     
     /* TODO make really private */
     
     $scope.calculateTotal = function() {
         // TODO perhaps make 'total' a public field on 'training' so it gets automatically recalculated when segments array is accessed
         $scope.total = $scope.training.total();
-    }
+    };
 
     $scope.addEmptySegment();
 }]);

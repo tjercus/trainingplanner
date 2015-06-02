@@ -7,7 +7,7 @@ var client = require("../public/javascripts/training");
 * Run with cli: 'mocha' or 'npm test'
 */
 describe('Training', function() {
-    console.log(client);
+    console.dir(client);
     describe('#total()', function() {
         it('should return an object with zeros when there is no data', function() {
             var training = new client.Training();

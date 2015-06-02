@@ -32,9 +32,9 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="segment in training.segments track by segment.uuid">
-						<td><input type="text" class="type-double" data-ng-model="segment.distance" data-ng-blur="valueChanged(segment,'distance')" /></td>
-						<td><input type="text" class="type-duration" data-ng-model="segment.duration" data-ng-blur="valueChanged(segment,'duration')" /></td>
-						<td><input type="text" class="type-time" data-ng-model="segment.pace" data-ng-blur="valueChanged(segment,'pace')"/></td>
+						<td><input type="text" class="type-double" data-ng-model="segment.distance" data-ng-change="valueChanged(segment,'distance')" /></td>
+						<td><input type="text" class="type-duration" data-ng-model="segment.duration" data-ng-change="valueChanged(segment,'duration')" /></td>
+						<td><input type="text" class="type-time" data-ng-model="segment.pace" data-ng-change="valueChanged(segment,'pace')" /></td>
 					</tr>
 				</tbody>
 			</table>
@@ -55,8 +55,7 @@
 
 	<!-- TODO use browserify over node modules to create a bundle.js instead of Bower -->
 	<script src="javascripts/libs/angular/angular.js"></script>
-	<script src="javascripts/libs/moment/moment.js"></script>
-	<script src="javascripts/libs/mout/src/string.js"></script>
+	<script src="javascripts/libs/moment/moment.js"></script>	
 	<script src="javascripts/training.js"></script>
 	<script src="javascripts/client.js"></script>
 </body>

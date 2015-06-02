@@ -1,9 +1,8 @@
 
 // make require work in browser
 if (typeof require === "function") {
-    var moment = require("moment");
-	var string = require("mout/src/string");
-}
+    var moment = require("moment");	
+} 
 
 /**
 * Model object concerning the concept of a 'Training'
@@ -19,18 +18,17 @@ var Training = function() {
             obj.uuid = this.createUuid();
         }
         this.segments.push(obj);
-    }
+    };
     
     /**
-    * TODO leftpad both segments
     * @return mm:ss String
     */
     this.makePace = function(obj) {
         var durationObj = moment.duration(obj.duration),
             seconds = durationObj.asSeconds(),
             paceObj = moment.duration(Math.round(seconds / obj.distance), "seconds");
-        return string.lpad(paceObj.minutes()) + ":" + string.lpad(paceObj.seconds());
-    }
+        return this.lpad(paceObj.minutes()) + ":" + this.lpad(paceObj.seconds());
+    };
 
     /**    
     * @return hh:mm:ss String as: pace * distance. ex: 5:10 * 12.93 km = 1:6:48
@@ -41,8 +39,8 @@ var Training = function() {
             totalSeconds = Math.round(seconds * obj.distance),
             durationObj = moment.duration(totalSeconds, "seconds");
             //console.log("calculated duration: " + durationObj.hours() + ":" + durationObj.minutes() + ":" + durationObj.seconds());
-        return durationObj.hours() + ":" + durationObj.minutes() + ":" + durationObj.seconds();
-    }
+        return this.lpad(durationObj.hours()) + ":" + this.lpad(durationObj.minutes()) + ":" + this.lpad(durationObj.seconds());
+    };
 
     /**
     * @return Object
@@ -52,7 +50,7 @@ var Training = function() {
             distance: 0,
             duration: "00:00:00",
             pace: "00:00"
-        }
+        };
         if (this.segments.length === 0) {
             return totalObj;
         } else {
@@ -69,9 +67,10 @@ var Training = function() {
                 }                
                 totalObj.distance += parseFloat(obj.distance);
                 // add duration
-                var totalDurationObj = moment.duration(totalObj.duration).add(obj.duration);
-                // TODO leftpad with zeros
-                totalObj.duration = totalDurationObj.hours() + ":" + totalDurationObj.minutes() + ":" + totalDurationObj.seconds();                
+                var totalDurationObj = moment.duration(totalObj.duration).add(obj.duration);                
+                totalObj.duration = this.lpad(totalDurationObj.hours()) 
+                   + ":" + this.lpad(totalDurationObj.minutes()) 
+                   + ":" + this.lpad(totalDurationObj.seconds());
             }
             if (totalObj.pace === undefined || totalObj.pace === null || totalObj.pace === "00:00") {
                 totalObj.pace = this.makePace(totalObj);
@@ -81,7 +80,7 @@ var Training = function() {
             totalObj.distance = totalObj.distance.toFixed(2);            
             return totalObj;
         }
-    }
+    };
     
     /**
     * TODO create UUID object as a separate module and include it as a module
@@ -93,8 +92,19 @@ var Training = function() {
             return v.toString(16);
         });
         return uuid;
-    }
-}
+    };
+    
+    /**
+    * @return leftpadded number ex: 2 becomes 02
+    */
+    this.lpad = function(num) {       
+       num = '' + num;
+       while(num.length < 2) {
+          num = '0' + num; 
+       }       
+       return num.substr(num.length - 2);       
+    };
+};
 // make export work in browser (perhaps by using Browserify)
 if (typeof module === "function" && typeof module.exports === "function") {
     console.log("module is available for export");

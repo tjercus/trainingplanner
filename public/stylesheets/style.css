@@ -1,9 +1,9 @@
 /* mobile first */
 
 body {
-  margin: 0;
-  padding: 0;
-  font: 22px "Lucida Grande", Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    font: 22px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 section {
@@ -11,7 +11,7 @@ section {
 }
 
 a {
-  color: #00B7FF;
+    color: #00B7FF;
 }
 
 nav {
@@ -59,13 +59,13 @@ table tbody td, table tbody td input {
 }
 
 table tbody tr td input.type-double {
-    width: 4em;
+    width: 4.5em;
 }
 table tbody tr td input.type-duration {
     width: 7em;
 }
 table tbody tr td input.type-time {
-    width: 4em;
+    width: 4.5em;
 }
 
 table .numeric {
@@ -116,17 +116,17 @@ menu button {
 
 /* small mobile */
 
-@media (min-width: 320px) {
+/*@media (min-width: 320px) {*/
     
-    body {
-        font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
-    }
+/*    body {*/
+/*        font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;*/
+/*    }*/
     
-}
+/*}*/
 
 /* desktop */
 
-@media (min-width: 720px) {
+@media (min-width: 1024px) {
     
     menu button {
        width: auto;
