@@ -65,8 +65,8 @@
 	<section class="container" data-ng-controller="StoredTrainingsController" data-ng-show="selectedMenuItemName == 'storedTrainings'">
 		  <h2>Previously stored trainings</h2>
 		  <ul id="trainings-list">
-		    <li ng-repeat="training in trainings">
-			    <a ng-click="loadInForm(training)">{{training.name}}</a>
+		    <li ng-repeat="obj in trainings">
+			    <a href="#" ng-click="loadInForm(obj.training)">{{obj.name}}</a>
 		    </li>
 	    </ul>
 	</section>

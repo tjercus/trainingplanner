@@ -64,8 +64,12 @@ trainingplannerApp.controller("CreateTrainingController", ["$rootScope", '$scope
     };
     
     $rootScope.$on("SAVE_TRAINING", function(event, name) {
-      localStorage.setItem(name, JSON.stringify($scope.training));
-      $scope.notification = "saved training in localStorage as '" + name + '"';
+        localStorage.setItem(name, JSON.stringify($scope.training));
+        $scope.notification = "saved training in localStorage as '" + name + '"';
+    });
+    
+    $rootScope.$on("POPULATE_FORM", function(event, training) {
+        $scope.training = training;
     });
 
     $scope.addEmptySegment();
@@ -74,6 +78,7 @@ trainingplannerApp.controller("CreateTrainingController", ["$rootScope", '$scope
 trainingplannerApp.controller("SaveTrainingDialogController", ["$rootScope", '$scope', function($rootScope, $scope) {
     angular.extend(this, new BaseController($rootScope, $scope));
     
+    // TODO show name when a training was previously saved and loaded
     $scope.trainingName = "";
     
     $scope.save = function() {
@@ -89,5 +94,19 @@ trainingplannerApp.controller("SaveTrainingDialogController", ["$rootScope", '$s
 
 trainingplannerApp.controller("StoredTrainingsController", ["$rootScope", '$scope', function($rootScope, $scope) {
     angular.extend(this, new BaseController($rootScope, $scope));
-    $scope.trainings = []; // TODO get from localStorage.
+    $scope.trainings = [];
+    
+    // TODO refresh instead of loading just once
+    for (var i = 0, len = localStorage.length; i < len; i++) {
+      var obj = {};
+      obj.name = localStorage.key(i);
+      console.log("name: " + obj.name);
+      obj.training = JSON.parse(localStorage.getItem(obj.name));
+      $scope.trainings.push(obj);
+    }
+    
+    $scope.loadInForm = function(training) {
+        $rootScope.$broadcast("POPULATE_FORM", training);
+        $rootScope.$broadcast("MENU_CLICK", "createTraining");
+    }
 }]);
