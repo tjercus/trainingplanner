@@ -10,6 +10,7 @@ if (typeof require === "function") {
 */
 var Training = function() {
     this.segments = [];
+    this.name = null;
 
     // TODO disallow direct access to this.segments
     this.addSegment = function(obj) {

@@ -1,3 +1,4 @@
+"use strict";
 
 var trainingplannerApp = angular.module("TrainingplannerApp", []);
 
@@ -27,7 +28,7 @@ trainingplannerApp.controller("CreateTrainingController", ["$rootScope", '$scope
     angular.extend(this, new BaseController($rootScope, $scope));
     
     var emptyObj = {distance: 0, duration: "00:00:00", pace: "00:00"};
-    $scope.training = new Training();
+    $scope.training = new Training();    
     $scope.total = {};
     $scope.notification = null;
 
@@ -110,3 +111,8 @@ trainingplannerApp.controller("StoredTrainingsController", ["$rootScope", '$scop
         $rootScope.$broadcast("MENU_CLICK", "createTraining");
     }
 }]);
+
+trainingplannerApp.run(function($rootScope) {
+    $rootScope.$broadcast("MENU_CLICK", "createTraining");
+    console.log("run phase");
+});
