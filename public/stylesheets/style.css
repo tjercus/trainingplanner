@@ -28,14 +28,20 @@ nav ul {
     text-transform: uppercase;
 }
 
+nav ul li {
+    margin-right: 1em;
+}
+
 nav li[disabled="disabled"] {
     text-decoration: none;
     font-style: italic;
-    border: 0px;
+    border: 0px;   
 }
 
 nav ul li a {
-    color: white;    
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 h2 {

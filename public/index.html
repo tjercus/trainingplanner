@@ -19,7 +19,8 @@
 		<nav>
 			<ul>
 				<li><a href="#" data-ng-click="handleMenuClick('createTraining')" data-ng-class="(selectedMenuItemName == 'createTraining') ? 'selected': ''">Create</a></li>
-				<li><a href="#" data-ng-click="handleMenuClick('storedTrainings')" data-ng-class="(selectedMenuItemName == 'storedTrainings') ? 'selected': ''">Load</a></li>				
+				<li><a href="#" data-ng-click="handleMenuClick('storedTrainings')" data-ng-class="(selectedMenuItemName == 'storedTrainings') ? 'selected': ''">Load</a></li>
+				<li><a href="#" data-ng-click="handleMenuClick('settings')" data-ng-class="(selectedMenuItemName == 'settings') ? 'selected': ''">Settings</a></li>
 			</ul>
 		</nav>
 	</header>
@@ -76,10 +77,16 @@
 	    </ul>
 	</section>
 
+	<section class="container" data-ng-controller="SettingsController" data-ng-show="selectedMenuItemName == 'settings'">
+		  <h2>Settings</h2>
+		  <p>TODO show settings for paces etc.</p>
+	</section>
+
 	<!-- TODO use browserify over node modules to create a bundle.js instead of Bower -->
 	<script src="javascripts/libs/angular/angular.js"></script>
-	<script src="javascripts/libs/moment/moment.js"></script>	
+	<script src="javascripts/libs/moment/moment.js"></script>
 	<script src="javascripts/training.js"></script>
+	<script src="javascripts/trainings.json"></script>	
 	<script src="javascripts/client.js"></script>
 </body>
 </html>

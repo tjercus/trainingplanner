@@ -1,0 +1,135 @@
+'use strict';
+
+// make require work in browser
+if (typeof require === "function") {
+  var moment = require("moment");
+}
+
+/**
+ * Model object concerning the concept of a 'Training'
+ * TODO support imperial units by config.
+ * TODO split into composible functions
+ */
+const Training = (training) => {
+  let segments = [];
+  let name = "new training";
+
+  if (training) {
+    segments = training.segments;
+    name = training.name;
+  }
+
+  const addSegment = (obj, overwriteUuid) => {
+    if (!obj.uuid || overwriteUuid == true) {
+      console.log("addSegment with new UUID");
+      obj.uuid = createUuid();
+    }
+    segments.push(obj);
+  }
+
+  const removeSegment = (obj) => {
+    let i = 0;
+    segments.forEach((segment) => {
+      if (segment.uuid === obj.uuid) {
+        segments.splice(i, 1);
+      }
+      i++;
+    });
+  }
+
+  /**
+   * @return mm:ss String
+   */
+  const makePace = (obj) => {
+    var durationObj = moment.duration(obj.duration),
+      seconds = durationObj.asSeconds(),
+      paceObj = moment.duration(Math.round(seconds / obj.distance), "seconds");
+    return lpad(paceObj.minutes()) + ":" + lpad(paceObj.seconds());
+  }
+
+  /**    
+   * @return hh:mm:ss String as: pace * distance. ex: 5:10 * 12.93 km = 1:6:48
+   */
+  const makeDuration = (obj) => {
+    var paceObj = moment.duration(obj.pace),
+      seconds = paceObj.asSeconds() / 60,
+      totalSeconds = Math.round(seconds * obj.distance),
+      durationObj = moment.duration(totalSeconds, "seconds");
+    return lpad(durationObj.hours()) + ":" + lpad(durationObj.minutes()) + ":" + lpad(durationObj.seconds());
+  }
+
+    /**
+     * @return Object
+     */
+  const total = () => {
+      var totalObj = {
+        distance: 0,
+        duration: "00:00:00",
+        pace: "00:00"
+      };
+      if (segments.length === 0) {
+        return totalObj;
+      } else {
+        console.log("segments: " + segments.length);
+        for (var i = 0, len = segments.length; i < len; i++) {
+          // add distance
+          var obj = segments[i];
+          if (obj.duration === undefined || obj.duration === 0) {
+            obj.duration = makeDuration(obj);
+          }
+          if (obj.pace === undefined || obj.pace === "00:00") {
+            obj.pace = makePace(obj);
+          }
+          totalObj.distance += parseFloat(obj.distance);
+          // add duration
+          var totalDurationObj = moment.duration(totalObj.duration).add(obj.duration);
+          totalObj.duration = lpad(totalDurationObj.hours()) + ":" + lpad(totalDurationObj.minutes()) + ":" + lpad(totalDurationObj.seconds());
+        }
+        if (totalObj.pace === undefined || totalObj.pace === null || totalObj.pace === "00:00") {
+          totalObj.pace = makePace(totalObj);
+        } else if (totalObj.duration === undefined || totalObj.duration === null || totalObj.duration === "00:00:00") {
+          totalObj.duration = makeDuration(totalObj);
+        }
+        totalObj.distance = totalObj.distance.toFixed(2);
+        return totalObj;
+      }
+    }
+
+  /**
+   * TODO create UUID object as a separate module and include it as a module
+   * @return uuid as String
+   */
+  const createUuid = () => {
+    // let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    //   let r = Math.random() * 16 | 0,
+    //     v = c == "x" ? r = (r & 0x3 | 0x8);
+    //   return v.toString(16);
+    // });
+    let uuid = "safsdf-" + Math.random() * 16;
+    return uuid;
+  }
+
+  /**
+   * @return leftpadded number ex: 2 becomes 02
+   */
+  const lpad = (num) => {
+    num = "" + num;
+    while (num.length < 2) {
+      num = "0" + num;
+    }
+    return num.substr(num.length - 2);
+  }
+
+  return {
+    addSegment: addSegment,
+    removeSegment: removeSegment,
+    total: total
+  }
+
+};
+
+// make export work in browser (perhaps by using Browserify)
+if (typeof module === "function" && typeof module.exports === "function") {
+  console.log("module is available for export");
+  module.exports.Training = Training;
+}

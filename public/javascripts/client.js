@@ -31,6 +31,24 @@ trainingplannerApp.controller("CreateTrainingController", ["$rootScope", '$scope
     $scope.training = new Training();
     $scope.total = {};
     $scope.notification = null;
+    // TODO make settings updatable via settings panel
+    $scope.paces = [         
+      "3KP": "3:24",
+      "5KP": "3:35",
+      "10KP": "3:42",
+      "SPEED": "3:42",
+      "16KP": "3:50",
+      "VVLT": "3:50",
+      "21KP": "3:55",
+      "STRENGTH": "4:04",
+      "MP": "4:10",
+      "MP+5%": "4:23",
+      "MP+10%": "4:35",
+      "MP+15%": "4:47",
+      "MP+20%": "5:00",
+      "RECOV1": "5:10",
+      "RECOV2": "5:30"
+    ];
 
     $scope.addEmptySegment = function() {
         console.log("createTrainingController.addEmptySegment();");
@@ -109,27 +127,7 @@ trainingplannerApp.controller("SaveTrainingDialogController", ["$rootScope", '$s
 
 trainingplannerApp.controller("StoredTrainingsController", ["$rootScope", '$scope', function($rootScope, $scope) {
     angular.extend(this, new BaseController($rootScope, $scope));
-    $scope.trainings = [
-      new Training({
-        name: "Hansons strength 1, 6 x 1m",
-        segments: [
-          {uuid: "1", distance: 2.000, duration: "00:13:00"},
-          {uuid: "2", distance: 1.601, duration: "00:06:30"},
-          {uuid: "3", distance: 0.400, duration: "00:02:20"},
-          {uuid: "4", distance: 1.601, duration: "00:06:30"},
-          {uuid: "5", distance: 0.400, duration: "00:02:20"},
-          {uuid: "6", distance: 1.601, duration: "00:06:30"},
-          {uuid: "7", distance: 0.400, duration: "00:02:20"},
-          {uuid: "8", distance: 1.601, duration: "00:06:30"},
-          {uuid: "9", distance: 0.400, duration: "00:02:20"},
-          {uuid: "10", distance: 1.601, duration: "00:06:30"},
-          {uuid: "11", distance: 0.400, duration: "00:02:20"},
-          {uuid: "12", distance: 1.601, duration: "00:06:30"},
-          {uuid: "13", distance: 2.000, duration: "00:14:00"}
-        ]
-      }),
-      new Training({name: "Mona fartlek", segments: []}),
-    ];
+    $scope.trainings = trainings;
     
     /*
     // TODO refresh instead of loading just once
@@ -151,6 +149,10 @@ trainingplannerApp.controller("StoredTrainingsController", ["$rootScope", '$scop
       $rootScope.$broadcast("POPULATE_FORM", JSON.stringify(training));
       $rootScope.$broadcast("MENU_CLICK", "createTraining");
     }
+}]);
+
+trainingplannerApp.controller("SettingsController", ["$rootScope", '$scope', function($rootScope, $scope) {
+    angular.extend(this, new BaseController($rootScope, $scope));    
 }]);
 
 trainingplannerApp.run(function($rootScope) {
