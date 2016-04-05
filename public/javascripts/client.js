@@ -28,17 +28,28 @@ trainingplannerApp.controller("CreateTrainingController", ["$rootScope", '$scope
     angular.extend(this, new BaseController($rootScope, $scope));
     
     var emptyObj = {distance: 0, duration: "00:00:00", pace: "00:00"};
-    $scope.training = new Training();    
+    $scope.training = new Training();
     $scope.total = {};
     $scope.notification = null;
 
     $scope.addEmptySegment = function() {
         console.log("createTrainingController.addEmptySegment();");
-        $scope.training.addSegment(angular.copy(emptyObj));
+        $scope.training.addSegment(angular.copy(emptyObj), false);        
     };
 
-    $scope.clearTraining = function()  {
-        $scope.training = new Training(angular.copy(emptyObj));
+    $scope.cloneSegment = function(segment) {
+        console.log("createTrainingController.cloneSegment(segment);");
+        $scope.training.addSegment(angular.copy(segment), true);
+        $scope.calculateTotal();
+    };
+
+    $scope.removeSegment = function(segment) {
+      $scope.training.removeSegment(segment);
+      $scope.calculateTotal();
+    }
+
+    $scope.clearTraining = function()  {        
+        $scope.training = new Training();
         $scope.calculateTotal();
     };
 
@@ -69,8 +80,11 @@ trainingplannerApp.controller("CreateTrainingController", ["$rootScope", '$scope
         $scope.notification = "saved training in localStorage as '" + name + '"';
     });
     
-    $rootScope.$on("POPULATE_FORM", function(event, training) {
-        $scope.training = training;
+    $rootScope.$on("POPULATE_FORM", function(event, json) {
+        console.log("populate: " + json);
+        var training = JSON.parse(json);
+        $scope.training = new Training(training);
+        $scope.calculateTotal();
     });
 
     $scope.addEmptySegment();
@@ -95,24 +109,51 @@ trainingplannerApp.controller("SaveTrainingDialogController", ["$rootScope", '$s
 
 trainingplannerApp.controller("StoredTrainingsController", ["$rootScope", '$scope', function($rootScope, $scope) {
     angular.extend(this, new BaseController($rootScope, $scope));
-    $scope.trainings = [];
+    $scope.trainings = [
+      new Training({
+        name: "Hansons strength 1, 6 x 1m",
+        segments: [
+          {uuid: "1", distance: 2.000, duration: "00:13:00"},
+          {uuid: "2", distance: 1.601, duration: "00:06:30"},
+          {uuid: "3", distance: 0.400, duration: "00:02:20"},
+          {uuid: "4", distance: 1.601, duration: "00:06:30"},
+          {uuid: "5", distance: 0.400, duration: "00:02:20"},
+          {uuid: "6", distance: 1.601, duration: "00:06:30"},
+          {uuid: "7", distance: 0.400, duration: "00:02:20"},
+          {uuid: "8", distance: 1.601, duration: "00:06:30"},
+          {uuid: "9", distance: 0.400, duration: "00:02:20"},
+          {uuid: "10", distance: 1.601, duration: "00:06:30"},
+          {uuid: "11", distance: 0.400, duration: "00:02:20"},
+          {uuid: "12", distance: 1.601, duration: "00:06:30"},
+          {uuid: "13", distance: 2.000, duration: "00:14:00"}
+        ]
+      }),
+      new Training({name: "Mona fartlek", segments: []}),
+    ];
     
+    /*
     // TODO refresh instead of loading just once
     for (var i = 0, len = localStorage.length; i < len; i++) {
       var obj = {};
       obj.name = localStorage.key(i);
       console.log("name: " + obj.name);
-      obj.training = JSON.parse(localStorage.getItem(obj.name));
-      $scope.trainings.push(obj);
+      console.log("storage: " + localStorage.getItem(obj));
+      if (localStorage.getItem(obj) === null) {
+        $rootScope.$broadcast("POPULATE_FORM_ERR_EVT", "object in localStorage is broken");
+      } else {
+        obj.training = JSON.parse(localStorage.getItem(obj.name));
+        $scope.trainings.push(obj);
+      }
     }
+    */
     
-    $scope.loadInForm = function(training) {
-        $rootScope.$broadcast("POPULATE_FORM", training);
-        $rootScope.$broadcast("MENU_CLICK", "createTraining");
+    $scope.loadInForm = function(training) {      
+      $rootScope.$broadcast("POPULATE_FORM", JSON.stringify(training));
+      $rootScope.$broadcast("MENU_CLICK", "createTraining");
     }
 }]);
 
 trainingplannerApp.run(function($rootScope) {
-    $rootScope.$broadcast("MENU_CLICK", "createTraining");
+    //$rootScope.$broadcast("MENU_CLICK", "createTraining");
     console.log("run phase");
 });

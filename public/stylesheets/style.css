@@ -24,14 +24,14 @@ nav {
 
 nav ul {
     margin: 0;
-    padding: 0.5em;
+    padding: 1em;
     text-transform: uppercase;
 }
 
 nav li[disabled="disabled"] {
     text-decoration: none;
     font-style: italic;
-    border: 0px;    
+    border: 0px;
 }
 
 nav ul li a {
@@ -52,6 +52,10 @@ table thead tr th {
     /*background-color: black;
     color: white;*/
     text-align: left;
+}
+
+table td {
+    padding: 0.1em 0.1em;
 }
 
 table tbody td, table tbody td input {
@@ -109,6 +113,12 @@ menu button {
     width: 100%;
 }
 
+.button-small {
+    font-size: 0.7em;
+    padding: 0.1em;
+    border: 0;
+}
+
 .selected {
     text-decoration: none;
     color: gray;
@@ -118,9 +128,13 @@ menu button {
 .notification {
   margin: 0.5em;
   padding: 1em;
-  background-color: yellow;
+  background-color: light-green;
   border: 1px solid silver;
   font-weight: bold;
+}
+
+input[type="text"] {
+    height: auto;
 }
 
 /* small mobile */

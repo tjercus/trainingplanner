@@ -19,22 +19,27 @@
 		<nav>
 			<ul>
 				<li><a href="#" data-ng-click="handleMenuClick('createTraining')" data-ng-class="(selectedMenuItemName == 'createTraining') ? 'selected': ''">Create</a></li>
-				<li><a href="#" data-ng-click="handleMenuClick('storedTrainings')" data-ng-class="(selectedMenuItemName == 'storedTrainings') ? 'selected': ''">Stored</a></li>
+				<li><a href="#" data-ng-click="handleMenuClick('storedTrainings')" data-ng-class="(selectedMenuItemName == 'storedTrainings') ? 'selected': ''">Load</a></li>				
 			</ul>
 		</nav>
 	</header>
 
 	<section class="container" data-ng-controller="CreateTrainingController" data-ng-show="selectedMenuItemName == 'createTraining'">
+		<h2>{{training.name}}</h2>
 		<form id="training-form">
 			<table summary="training segments">
 				<thead>
-					<tr><th>Distance</th><th>Duration</th><th>Pace</th></tr>
+					<tr><th>Distance</th><th>Duration</th><th>Pace</th><th>Actions</th></tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="segment in training.segments track by segment.uuid">
 						<td><input type="text" class="type-double" data-ng-model="segment.distance" data-ng-change="valueChanged(segment,'distance')" /></td>
 						<td><input type="text" class="type-duration" data-ng-model="segment.duration" data-ng-change="valueChanged(segment,'duration')" /></td>
 						<td><input type="text" class="type-time" data-ng-model="segment.pace" data-ng-change="valueChanged(segment,'pace')" /></td>
+						<td>
+							<button class="button button-small" data-ng-click="cloneSegment(segment)">Clone</button>
+							<button class="button button-small" data-ng-click="removeSegment(segment)">Remove</button>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -66,7 +71,7 @@
 		  <h2>Previously stored trainings</h2>
 		  <ul id="trainings-list">
 		    <li ng-repeat="obj in trainings">
-			    <a href="#" ng-click="loadInForm(obj.training)">{{obj.name}}</a>
+			    <a href="#" ng-click="loadInForm(obj)">{{obj.name}}</a>
 		    </li>
 	    </ul>
 	</section>

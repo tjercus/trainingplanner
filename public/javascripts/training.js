@@ -8,17 +8,33 @@ if (typeof require === "function") {
 * Model object concerning the concept of a 'Training'
 * TODO support imperial units by config.
 */
-var Training = function() {
-    this.segments = [];
-    this.name = null;
+var Training = function(training) {
+    if (training) {
+      this.segments = training.segments;
+      this.name = training.name;
+    } else {
+      this.segments = [];
+      this.name = "new training";
+    }
 
     // TODO disallow direct access to this.segments
-    this.addSegment = function(obj) {
-        if (!obj.uuid) {
+    this.addSegment = function(obj, overwriteUuid) {
+        if (!obj.uuid || overwriteUuid == true) {
+            console.log("addSegment with new UUID");
             obj.uuid = this.createUuid();
         }
         this.segments.push(obj);
     };
+
+    this.removeSegment = function(obj) {
+        let i = 0;
+        this.segments.forEach((segment) => {
+            if (segment.uuid === obj.uuid) {
+              this.segments.splice(i, 1);
+            }
+            i++;
+        });
+    }
     
     /**
     * @return mm:ss String
