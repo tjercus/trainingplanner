@@ -27,27 +27,28 @@ trainingplannerApp.controller("HeaderController", ["$rootScope", "$scope", funct
 trainingplannerApp.controller("CreateTrainingController", ["$rootScope", '$scope', function($rootScope, $scope) {
     angular.extend(this, new BaseController($rootScope, $scope));
     
-    var emptyObj = {distance: 0, duration: "00:00:00", pace: "00:00"};
+    var emptyObj = {distance: 0, duration: "00:00:00", pace: "00:00", lapPace: "00:00"};
     $scope.training = new Training();
     $scope.total = {};
     $scope.notification = null;
     // TODO make settings updatable via settings panel
-    $scope.paces = [         
-      "3KP": "3:24",
-      "5KP": "3:35",
-      "10KP": "3:42",
-      "SPEED": "3:42",
-      "16KP": "3:50",
-      "VVLT": "3:50",
-      "21KP": "3:55",
-      "STRENGTH": "4:04",
-      "MP": "4:10",
-      "MP+5%": "4:23",
-      "MP+10%": "4:35",
-      "MP+15%": "4:47",
-      "MP+20%": "5:00",
-      "RECOV1": "5:10",
-      "RECOV2": "5:30"
+    $scope.paces = [
+      {"1.6KP": "3:15"},         
+      {"3KP": "3:24"},
+      {"5KP": "3:35"},
+      {"10KP": "3:42"},
+      {"SPEED": "3:42"},
+      {"16KP": "3:50"},
+      {"VVLT": "3:50"},
+      {"21KP": "3:55"},
+      {"STRENGTH": "4:04"},
+      {"MP": "4:10"},
+      {"MP+5%": "4:23"},
+      {"MP+10%": "4:35"},
+      {"MP+15%": "4:47"},
+      {"MP+20%": "5:00"},
+      {"RECOV1": "5:10"},
+      {"RECOV2": "5:30"}
     ];
 
     $scope.addEmptySegment = function() {

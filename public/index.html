@@ -30,13 +30,14 @@
 		<form id="training-form">
 			<table summary="training segments">
 				<thead>
-					<tr><th>Distance</th><th>Duration</th><th>Pace</th><th>Actions</th></tr>
+					<tr><th>Distance</th><th>Duration</th><th>Pace</th><th></th>Details<th>Actions</th></tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="segment in training.segments track by segment.uuid">
 						<td><input type="text" class="type-double" data-ng-model="segment.distance" data-ng-change="valueChanged(segment,'distance')" /></td>
 						<td><input type="text" class="type-duration" data-ng-model="segment.duration" data-ng-change="valueChanged(segment,'duration')" /></td>
 						<td><input type="text" class="type-time" data-ng-model="segment.pace" data-ng-change="valueChanged(segment,'pace')" /></td>
+						<td>{{segment.lapPace}} per 400</td>
 						<td>
 							<button class="button button-small" data-ng-click="cloneSegment(segment)">Clone</button>
 							<button class="button button-small" data-ng-click="removeSegment(segment)">Remove</button>

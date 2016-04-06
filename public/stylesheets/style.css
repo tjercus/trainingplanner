@@ -54,14 +54,20 @@ table {
     margin-top: 0em;
 }
 
+table tbody tr {
+    height: auto;
+}
+
 table thead tr th {
     /*background-color: black;
     color: white;*/
     text-align: left;
 }
 
-table td {
-    padding: 0.1em 0.1em;
+table td, table th {
+    padding: 0px 0px;
+    margin: 0px;
+    height: 60px;
 }
 
 table tbody td, table tbody td input {
@@ -141,6 +147,7 @@ menu button {
 
 input[type="text"] {
     height: auto;
+    padding: auto;
 }
 
 /* small mobile */

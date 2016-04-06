@@ -26,3 +26,5 @@ TODO
 # better styling infobox
 # separate time/pace field into 3 or 2 fields
 # port to Angular2
+# add ´segment type´ dropdown
+# add segment ´named paces´ dropdown
