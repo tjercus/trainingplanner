@@ -55,10 +55,17 @@ let Training = function(training) {
             seconds = paceObj.asSeconds() / 60,
             totalSeconds = Math.round(seconds * obj.distance),
             durationObj = moment.duration(totalSeconds, "seconds");            
-        return this.lpad(durationObj.hours()) 
-          + ":" + this.lpad(durationObj.minutes()) 
-          + ":" + this.lpad(durationObj.seconds());
+        return formatDuration(durationObj);
     };
+
+    /**    
+    * @return hh:mm:ss String
+    */
+    this.formatDuration = function(obj) {
+      return this.lpad(obj.hours())
+        + ":" + this.lpad(obj.minutes())
+        + ":" + this.lpad(obj.seconds());
+    }
 
     /**
     * @return Object
@@ -71,7 +78,7 @@ let Training = function(training) {
         };
         if (this.segments.length === 0) {
             return totalObj;
-        } else {            
+        } else {
             console.log("segments: " + this.segments.length);
             for (let i = 0, len = this.segments.length; i < len; i++) {
                 // add distance
@@ -85,9 +92,7 @@ let Training = function(training) {
                 totalObj.distance += parseFloat(obj.distance);
                 // add duration
                 let totalDurationObj = moment.duration(totalObj.duration).add(obj.duration);                
-                totalObj.duration = this.lpad(totalDurationObj.hours()) 
-                   + ":" + this.lpad(totalDurationObj.minutes()) 
-                   + ":" + this.lpad(totalDurationObj.seconds());
+                totalObj.duration = this.formatDuration(totalDurationObj);
             }
             if (totalObj.pace === undefined 
               || totalObj.pace === null 
