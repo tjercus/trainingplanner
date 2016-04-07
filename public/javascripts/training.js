@@ -55,7 +55,7 @@ let Training = function(training) {
             seconds = paceObj.asSeconds() / 60,
             totalSeconds = Math.round(seconds * obj.distance),
             durationObj = moment.duration(totalSeconds, "seconds");            
-        return formatDuration(durationObj);
+        return this.formatDuration(durationObj);
     };
 
     /**    
