@@ -27,7 +27,7 @@ trainingplannerApp.controller("HeaderController", ["$rootScope", "$scope", funct
 trainingplannerApp.controller("CreateTrainingController", ["$rootScope", '$scope', function($rootScope, $scope) {
     angular.extend(this, new BaseController($rootScope, $scope));
     
-    var emptyObj = {distance: 0, duration: "00:00:00", pace: "00:00", lapPace: "00:00"};
+    var emptyObj = {distance: 0, duration: "00:00:00", pace: "00:00"};
     $scope.training = new Training();
     $scope.total = {};
     $scope.notification = null;

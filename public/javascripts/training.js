@@ -40,6 +40,7 @@ var Training = function(training) {
     * @return mm:ss String
     */
     this.makePace = function(obj) {
+        console.log("training: make pace for duration ["+obj.duration+"]");
         var durationObj = moment.duration(obj.duration),
             seconds = durationObj.asSeconds(),
             paceObj = moment.duration(Math.round(seconds / obj.distance), "seconds");
@@ -69,8 +70,7 @@ var Training = function(training) {
         };
         if (this.segments.length === 0) {
             return totalObj;
-        } else {
-            //var obj = this.segments[0];
+        } else {            
             console.log("segments: " + this.segments.length);
             for (var i = 0, len = this.segments.length; i < len; i++) {
                 // add distance
@@ -78,7 +78,7 @@ var Training = function(training) {
                 if (obj.duration === undefined || obj.duration === 0) {
                     obj.duration = this.makeDuration(obj);
                 }
-                if (obj.pace === undefined || obj.pace === "00:00") {
+                if (obj.pace === undefined || obj.pace === "00:00") {                  
                     obj.pace = this.makePace(obj);
                 }                
                 totalObj.distance += parseFloat(obj.distance);

@@ -28,3 +28,4 @@ TODO
 # port to Angular2
 # add ´segment type´ dropdown
 # add segment ´named paces´ dropdown
+# add lapPace
