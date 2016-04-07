@@ -84,6 +84,7 @@ trainingplannerApp.controller("CreateTrainingController", ["$rootScope", '$scope
         if (propertyname === "duration") {
             segment.pace = "00:00";
         }
+        // TODO update only segment so calculateTotal can ben faster
         $scope.calculateTotal();
     };
     

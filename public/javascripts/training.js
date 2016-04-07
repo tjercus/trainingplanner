@@ -1,3 +1,4 @@
+"use strict";
 
 // make require work in browser
 if (typeof require === "function") {
@@ -54,9 +55,19 @@ let Training = function(training) {
         let paceObj = moment.duration(obj.pace),
             seconds = paceObj.asSeconds() / 60,
             totalSeconds = Math.round(seconds * obj.distance),
-            durationObj = moment.duration(totalSeconds, "seconds");            
+            durationObj = moment.duration(totalSeconds, "seconds");
         return this.formatDuration(durationObj);
     };
+
+    this.calculateSegmentData = function(obj) {
+      if (obj.duration === undefined || obj.duration === 0) {
+        obj.duration = this.makeDuration(obj);
+      }
+      if (obj.pace === undefined || obj.pace === "00:00") {
+        obj.pace = this.makePace(obj);
+      }
+      // TODO calculate distance based on duration * pace
+    }
 
     /**    
     * @return hh:mm:ss String
@@ -80,20 +91,19 @@ let Training = function(training) {
             return totalObj;
         } else {
             console.log("segments: " + this.segments.length);
+            // TODO forEach/this
+            //segments.forEach((obj) => {
             for (let i = 0, len = this.segments.length; i < len; i++) {
-                // add distance
-                let obj = this.segments[i];
-                if (obj.duration === undefined || obj.duration === 0) {
-                    obj.duration = this.makeDuration(obj);
-                }
-                if (obj.pace === undefined || obj.pace === "00:00") {                  
-                    obj.pace = this.makePace(obj);
-                }                
-                totalObj.distance += parseFloat(obj.distance);
+                // add distance, NOTE: side-effect: obj is a reference so it changes
+                let segmentObj = this.segments[i];
+                this.calculateSegmentData(segmentObj);
+                totalObj.distance += parseFloat(segmentObj.distance);
                 // add duration
-                let totalDurationObj = moment.duration(totalObj.duration).add(obj.duration);                
+                let totalDurationObj = moment.duration(totalObj.duration).add(segmentObj.duration);
                 totalObj.duration = this.formatDuration(totalDurationObj);
+              //}).bind(this);
             }
+
             if (totalObj.pace === undefined 
               || totalObj.pace === null 
               || totalObj.pace === "00:00") {
