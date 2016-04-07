@@ -1,14 +1,14 @@
 
 // make require work in browser
 if (typeof require === "function") {
-    var moment = require("moment");	
+    let moment = require("moment");	
 } 
 
 /**
 * Model object concerning the concept of a 'Training'
 * TODO support imperial units by config.
 */
-var Training = function(training) {
+let Training = function(training) {
     if (training) {
       this.segments = training.segments;
       this.name = training.name;
@@ -41,7 +41,7 @@ var Training = function(training) {
     */
     this.makePace = function(obj) {
         console.log("training: make pace for duration ["+obj.duration+"]");
-        var durationObj = moment.duration(obj.duration),
+        let durationObj = moment.duration(obj.duration),
             seconds = durationObj.asSeconds(),
             paceObj = moment.duration(Math.round(seconds / obj.distance), "seconds");
         return this.lpad(paceObj.minutes()) + ":" + this.lpad(paceObj.seconds());
@@ -51,19 +51,20 @@ var Training = function(training) {
     * @return hh:mm:ss String as: pace * distance. ex: 5:10 * 12.93 km = 1:6:48
     */
     this.makeDuration = function(obj) {
-        var paceObj = moment.duration(obj.pace),
+        let paceObj = moment.duration(obj.pace),
             seconds = paceObj.asSeconds() / 60,
             totalSeconds = Math.round(seconds * obj.distance),
-            durationObj = moment.duration(totalSeconds, "seconds");
-            //console.log("calculated duration: " + durationObj.hours() + ":" + durationObj.minutes() + ":" + durationObj.seconds());
-        return this.lpad(durationObj.hours()) + ":" + this.lpad(durationObj.minutes()) + ":" + this.lpad(durationObj.seconds());
+            durationObj = moment.duration(totalSeconds, "seconds");            
+        return this.lpad(durationObj.hours()) 
+          + ":" + this.lpad(durationObj.minutes()) 
+          + ":" + this.lpad(durationObj.seconds());
     };
 
     /**
     * @return Object
     */
     this.total = function() {
-        var totalObj = {
+        let totalObj = {
             distance: 0,
             duration: "00:00:00",
             pace: "00:00"
@@ -72,9 +73,9 @@ var Training = function(training) {
             return totalObj;
         } else {            
             console.log("segments: " + this.segments.length);
-            for (var i = 0, len = this.segments.length; i < len; i++) {
+            for (let i = 0, len = this.segments.length; i < len; i++) {
                 // add distance
-                var obj = this.segments[i];
+                let obj = this.segments[i];
                 if (obj.duration === undefined || obj.duration === 0) {
                     obj.duration = this.makeDuration(obj);
                 }
@@ -83,14 +84,18 @@ var Training = function(training) {
                 }                
                 totalObj.distance += parseFloat(obj.distance);
                 // add duration
-                var totalDurationObj = moment.duration(totalObj.duration).add(obj.duration);                
+                let totalDurationObj = moment.duration(totalObj.duration).add(obj.duration);                
                 totalObj.duration = this.lpad(totalDurationObj.hours()) 
                    + ":" + this.lpad(totalDurationObj.minutes()) 
                    + ":" + this.lpad(totalDurationObj.seconds());
             }
-            if (totalObj.pace === undefined || totalObj.pace === null || totalObj.pace === "00:00") {
+            if (totalObj.pace === undefined 
+              || totalObj.pace === null 
+              || totalObj.pace === "00:00") {
                 totalObj.pace = this.makePace(totalObj);
-            } else if (totalObj.duration === undefined || totalObj.duration === null || totalObj.duration === "00:00:00") {
+            } else if (totalObj.duration === undefined 
+              || totalObj.duration === null 
+              || totalObj.duration === "00:00:00") {
                 totalObj.duration = this.makeDuration(totalObj);
             }
             totalObj.distance = totalObj.distance.toFixed(2);            
@@ -103,8 +108,8 @@ var Training = function(training) {
     * @return uuid as String
     */
     this.createUuid = function() {
-        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r&0x3|0x8);
+        let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r&0x3|0x8);
             return v.toString(16);
         });
         return uuid;

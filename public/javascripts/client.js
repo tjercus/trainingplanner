@@ -130,22 +130,6 @@ trainingplannerApp.controller("StoredTrainingsController", ["$rootScope", '$scop
     angular.extend(this, new BaseController($rootScope, $scope));
     $scope.trainings = trainings;
     
-    /*
-    // TODO refresh instead of loading just once
-    for (var i = 0, len = localStorage.length; i < len; i++) {
-      var obj = {};
-      obj.name = localStorage.key(i);
-      console.log("name: " + obj.name);
-      console.log("storage: " + localStorage.getItem(obj));
-      if (localStorage.getItem(obj) === null) {
-        $rootScope.$broadcast("POPULATE_FORM_ERR_EVT", "object in localStorage is broken");
-      } else {
-        obj.training = JSON.parse(localStorage.getItem(obj.name));
-        $scope.trainings.push(obj);
-      }
-    }
-    */
-    
     $scope.loadInForm = function(training) {      
       $rootScope.$broadcast("POPULATE_FORM", JSON.stringify(training));
       $rootScope.$broadcast("MENU_CLICK", "createTraining");
@@ -156,7 +140,6 @@ trainingplannerApp.controller("SettingsController", ["$rootScope", '$scope', fun
     angular.extend(this, new BaseController($rootScope, $scope));    
 }]);
 
-trainingplannerApp.run(function($rootScope) {
-    //$rootScope.$broadcast("MENU_CLICK", "createTraining");
+trainingplannerApp.run(function($rootScope) {    
     console.log("run phase");
 });
