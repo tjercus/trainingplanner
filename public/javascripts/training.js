@@ -1,12 +1,12 @@
 "use strict";
 
-// make require work in browser
-if (typeof require === "function") {
-    let moment = require("moment");	
-} 
+// make nodejs require work in browser
+if (typeof require === "function") {     
+    var moment = require("moment");
+}
 
 /**
-* Model object concerning the concept of a 'Training'
+* Model object concerning the concept of a "Training"
 * TODO support imperial units by config.
 */
 let Training = function(training) {
@@ -83,7 +83,7 @@ let Training = function(training) {
     */
     this.total = function() {
         let totalObj = {
-            distance: 0,
+            distance: new Number(0),
             duration: "00:00:00",
             pace: "00:00"
         };
@@ -113,7 +113,8 @@ let Training = function(training) {
               || totalObj.duration === "00:00:00") {
                 totalObj.duration = this.makeDuration(totalObj);
             }
-            totalObj.distance = totalObj.distance.toFixed(2);            
+            //totalObj.distance = totalObj.distance.toFixed(3);
+            totalObj.distance = totalObj.distance;
             return totalObj;
         }
     };
@@ -123,8 +124,8 @@ let Training = function(training) {
     * @return uuid as String
     */
     this.createUuid = function() {
-        let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r&0x3|0x8);
+        let uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
+            let r = Math.random() * 16 | 0, v = c == "x" ? r : (r&0x3|0x8);
             return v.toString(16);
         });
         return uuid;
@@ -134,15 +135,13 @@ let Training = function(training) {
     * @return leftpadded number ex: 2 becomes 02
     */
     this.lpad = function(num) {       
-       num = '' + num;
+       num = "" + num;
        while(num.length < 2) {
-          num = '0' + num; 
+          num = "0" + num; 
        }       
        return num.substr(num.length - 2);       
     };
 };
-// make export work in browser (perhaps by using Browserify)
-if (typeof module === "function" && typeof module.exports === "function") {
-    console.log("module is available for export");
-    module.exports.Training = Training;
-}
+// make nodejs export work in browser (perhaps by using Browserify)
+var module = module || {exports : {}};
+module.exports.Training = Training;
