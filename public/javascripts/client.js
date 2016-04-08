@@ -5,14 +5,12 @@ var trainingplannerApp = angular.module("TrainingplannerApp", []);
 function BaseController($rootScope, $scope) {
 	$scope.selectedMenuItemName = "";
 	
-	$scope.handleMenuClick = function(name) {
-		console.log("handleMenuClick: " + name);
+	$scope.handleMenuClick = function(name) {		
 		$rootScope.$broadcast("MENU_CLICK", name);
 		$scope.selectedMenuItemName = name;
 	};
 	
-	$rootScope.$on("MENU_CLICK", function(event, name) {
-		console.log("MENU_CLICK: " + name);
+	$rootScope.$on("MENU_CLICK", function(event, name) {		
 		$scope.selectedMenuItemName = name;
 	});
 }
@@ -56,8 +54,7 @@ trainingplannerApp.controller("CreateTrainingController", ["$rootScope", '$scope
         $scope.training.addSegment(angular.copy(emptyObj), false);        
     };
 
-    $scope.cloneSegment = function(segment) {
-        console.log("createTrainingController.cloneSegment(segment);");
+    $scope.cloneSegment = function(segment) {        
         $scope.training.addSegment(angular.copy(segment), true);
         $scope.calculateTotal();
     };
@@ -77,14 +74,14 @@ trainingplannerApp.controller("CreateTrainingController", ["$rootScope", '$scope
     * TODO ask user which value should be calculated?
     * TODO move this into Training object
     */
-    $scope.valueChanged = function(segment, propertyname) {
-        if (propertyname === "pace") {
-            segment.duration = 0;
-        }
+    $scope.valueChanged = function(segment, propertyname) {        
         if (propertyname === "duration") {
-            segment.pace = "00:00";
+          segment.pace = "00:00";
         }
-        // TODO update only segment so calculateTotal can ben faster
+        if (propertyname === "pace") {
+          segment.duration = "00:00:00";
+        }
+        $scope.training.updateSegment(segment);
         $scope.calculateTotal();
     };
     
@@ -100,8 +97,7 @@ trainingplannerApp.controller("CreateTrainingController", ["$rootScope", '$scope
         $scope.notification = "saved training in localStorage as '" + name + '"';
     });
     
-    $rootScope.$on("POPULATE_FORM", function(event, json) {
-        console.log("populate: " + json);
+    $rootScope.$on("POPULATE_FORM", function(event, json) {        
         var training = JSON.parse(json);
         $scope.training = new Training(training);
         $scope.calculateTotal();
