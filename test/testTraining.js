@@ -7,22 +7,22 @@ var trainingModule = require("../public/javascripts/training");
  * Run with cli: 'mocha' or 'npm test'
  */
 describe('Training', function() {
-      //console.dir(trainingModule.Training);
-      describe('#makeDistance()', function() {
-        it('should calculate distance based on duration and pace', function() {
+      describe('accessors', function() {
+        it('should not allow direct access to members', function() {
           var training = new trainingModule.Training();
-          var segment = {
+          var segments = [{
             duration: "01:02:23",
             pace: "03:53"
-          };
-          var distance = training.makeDistance(segment);
-          distance.should.equal(16.064377682403432);
+          }];          
+          training.segments = segments;
+          var total = training.total();
+          total.distance.should.not.equal(16.064377682403432);
         });
-      });
+      });      
       describe('#total()', function() {
         it('should return an object with zeros when there is no data', function() {
             var training = new trainingModule.Training();
-            var total = training.total();            
+            var total = training.total();
             total.distance.should.equal(0);
             total.duration.should.equal("00:00:00");
             total.pace.should.equal("00:00");
@@ -105,7 +105,7 @@ describe('Training', function() {
                 training.addSegment({
                   duration: "00:58:12",
                   pace: "02:59"
-                });
+                });            
                 var total = training.total();
                 total.duration.should.equal("01:52:05");
               });
