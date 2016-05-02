@@ -66,13 +66,14 @@ table thead tr th {
 
 table td, table th {
     padding: 0px 0px;
-    margin: 0px;
-    height: 60px;
+    margin: 0px;    
+    height: auto;
 }
 
 table tbody td, table tbody td input {
     border: 0;
     margin: 0;
+    margin-right: 0.1em;
 }
 
 table tbody tr td input.type-double {
