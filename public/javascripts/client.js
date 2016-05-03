@@ -133,6 +133,10 @@ trainingplannerApp.controller("StoredTrainingsController", ["$rootScope", '$scop
     }
 }]);
 
+trainingplannerApp.controller("TimelineController", ["$rootScope", '$scope', function($rootScope, $scope) {
+    angular.extend(this, new BaseController($rootScope, $scope));
+}]);
+
 trainingplannerApp.controller("SettingsController", ["$rootScope", '$scope', function($rootScope, $scope) {
     angular.extend(this, new BaseController($rootScope, $scope));    
 }]);

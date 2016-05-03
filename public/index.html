@@ -19,8 +19,8 @@
 	<header class="header" data-ng-controller="HeaderController">
 		<nav>
 			<ul>
-				<li><a href="#" data-ng-click="handleMenuClick('createTraining')" data-ng-class="(selectedMenuItemName == 'createTraining') ? 'selected': ''">Create</a></li>
-				<li><a href="#" data-ng-click="handleMenuClick('storedTrainings')" data-ng-class="(selectedMenuItemName == 'storedTrainings') ? 'selected': ''">Load</a></li>
+				<li><a href="#" data-ng-click="handleMenuClick('timeline')" data-ng-class="(selectedMenuItemName == 'timeline') ? 'selected': ''">Timeline</a></li>				
+				<li><a href="#" data-ng-click="handleMenuClick('storedTrainings')" data-ng-class="(selectedMenuItemName == 'storedTrainings') ? 'selected': ''">Trainings</a></li>				
 				<li><a href="#" data-ng-click="handleMenuClick('settings')" data-ng-class="(selectedMenuItemName == 'settings') ? 'selected': ''">Settings</a></li>
 			</ul>
 		</nav>
@@ -76,7 +76,13 @@
 			    <a href="#" ng-click="loadInForm(obj)">{{obj.name}}</a>
 		    </li>
 	    </ul>
+	    <button data-ng-click="handleMenuClick('createTraining')" class="button button-primary">Create training</button>
 	</section>
+
+	<section class="container" data-ng-controller="TimelineController" data-ng-show="selectedMenuItemName == 'timeline'">
+		  <h2>Timeline</h2>
+		  Calendar
+	</section>	
 
 	<section class="container" data-ng-controller="SettingsController" data-ng-show="selectedMenuItemName == 'settings'">
 		  <h2>Settings</h2>
